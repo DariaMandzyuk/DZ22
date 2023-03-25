@@ -10,7 +10,9 @@ data class Post(
     val postType: String,
     val likes: Int,
     val original: Post?,
+    var attachmentArray: Array<Attachment>
 )
+
 
 
 
