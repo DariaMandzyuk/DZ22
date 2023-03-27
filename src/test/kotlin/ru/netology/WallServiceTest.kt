@@ -1,5 +1,6 @@
 package ru.netology
 
+import Comments
 import Post
 import org.junit.Test
 
@@ -7,7 +8,6 @@ import org.junit.Assert.*
 import org.junit.Before
 
 class WallServiceTest {
-
     @Before
     fun clearBeforeTest() {
         WallService.clear()
@@ -15,18 +15,18 @@ class WallServiceTest {
 
     @Test
     fun add() {
-        val result = WallService.add((Post(7, 1, "Hello", true, true, 13, 2, 1, "answer",10, null, arrayOf())))
+        val result = WallService.add(returnPost(5))
         assertEquals(result.id, 1)
     }
 
     @Test
     fun shouldBeTrueWhileUpdate() {
 
-        WallService.add(Post(1, 1, "Hello", true, true, 13, 2, 1, "answer", 10, null, arrayOf()))
-        WallService.add(Post(2, 5, "Nice", true, true, 20, 3, 1, "type", 9, null, arrayOf()))
-        WallService.add(Post(4, 7, "Parrot", true, false, 13, 2, 1, "top", 1, null, arrayOf()))
+        WallService.add(returnPost(1))
+        WallService.add(returnPost(2))
+        WallService.add(returnPost(3))
 
-        val update = Post(2, 6, "Nice", true, true, 14, 7, 2, "type", 10, null, arrayOf())
+        val update = returnPost(2)
 
         val result = WallService.update(update)
 
@@ -35,14 +35,20 @@ class WallServiceTest {
 
     @Test
     fun shouldBeFalseWhileUpdate() {
-        WallService.add(Post(1, 1, "Hello", true, true, 13, 2, 1, "answer", 10, null, arrayOf()))
-        WallService.add(Post(2, 5, "Nice", true, true, 20, 3, 1, "type", 9, null, arrayOf()))
-        WallService.add(Post(4, 7, "Parrot", true, false, 13, 2, 1, "top", 1, null, arrayOf()))
+        WallService.add(returnPost(1))
+        WallService.add(returnPost(2))
+        WallService.add(returnPost(3))
 
-        val update = Post(8, 6, "Nice", true, true, 14, 7, 2, "type", 10, null, arrayOf())
+        val update = returnPost(8)
 
         val result = WallService.update(update)
 
         assertFalse(result)
+    }
+
+    private fun returnPost(id: Int): Post{
+        return Post(id, 1, 1, 1, 1, "Hello", 1, 1, true,
+            Comments(1,1,1), null, null, "Hello", null, null, 4, null, 4,
+            4, 4, 4, 4, true)
     }
 }
