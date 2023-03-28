@@ -1,46 +1,29 @@
-data class Likes(
-    val count: Int
-)
-
 data class Post(
-    var id: Int, val ownerId: Int, val text: String, val isFavorite: Boolean, val friendsOnly: Boolean,
-    val date: Int, val createdBy: Int, val fromId: Int, val postType: String, val likes: Likes
+    var id: Int,
+    val ownerId: Int,
+    val fromId: Int,
+    val createdBy: Int,
+    val date: Int,
+    val text: String,
+    val replyOwnerId: Int,
+    val replyPostId: Int,
+    val friendsOnly: Boolean,
+    val comments: Comments,
+    val likes: Likes?,
+    val reposts: Reposts?,
+    val postType: String,
+    val postSource: PostSourse?,
+    val geo: Geo?,
+    val signerId: Int,
+    val copyHistory: Array<CopyHistory>?,
+    val canPin: Int,
+    val canDelete: Int,
+    val canEdit: Int?,
+    val isPinned: Int,
+    val markedAsAds: Int,
+    val isFavorite: Boolean,
 )
 
-object WallService {
-    private var posts = emptyArray<Post>()
-    private var lastId = 0
-
-    fun clear() {
-        posts = emptyArray()
-        lastId = 0
-    }
-
-    fun add(post: Post): Post {
-        posts += post.copy(id = ++lastId, likes = post.likes.copy())
-        return posts.last()
-    }
-
-    fun update(post1: Post): Boolean {
-        for ((index, post) in posts.withIndex()) {
-            if (post1.id == post.id) {
-                posts[index] = post1.copy(likes = post.likes.copy())
-                return true
-            }
-        }
-        return false
-    }
-}
-
-fun main() {
-    val post1 = Post(1, 1, "Hello", true, true, 13, 2, 1, "answer", Likes(10))
-    val post2 = post1.copy(ownerId = post1.ownerId + 4)
-    val post3 = post1.copy(text = post1.text + " World!")
-
-    println(WallService.add(post1))
-    println(WallService.add(post2))
-    println(WallService.update(post3))
-}
 
 
 
