@@ -1,7 +1,12 @@
 package ru.netology
 
-import Comments
+import Comment
+import Donut
 import Post
+import PostNotFoundException
+import ThreadComments
+import Video
+import VideoAttachment
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -46,9 +51,24 @@ class WallServiceTest {
         assertFalse(result)
     }
 
-    private fun returnPost(id: Int): Post{
-        return Post(id, 1, 1, 1, 1, "Hello", 1, 1, true,
-            Comments(1,1,1), null, null, "Hello", null, null, 4, null, 4,
-            4, 4, 4, 4, true)
+    private fun returnPost(id: Int): Post {
+        return Post(
+            id, 1, 1, 1, 1, "Hello", 1, 1, true,
+            Comment(1, 1), null, null, "Hello", null, null, 4, null, 4,
+            4, 4, 4, 4, true
+        )
+    }
+
+    @Test
+    fun shouldNotThrowException() {
+        WallService.add(returnPost(1))
+        WallService.createComment(1, Comment(1, 1))
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrowException() {
+        WallService.createComment(
+            2, Comment(1, 1)
+        )
     }
 }

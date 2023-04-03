@@ -1,11 +1,11 @@
 fun main() {
-    val comments = Comments(1, 1, 1)
+    val commentTest = Comment(1, 1, 2, "Comment", )
     val audio = Audio()
     val attachment = AudioAttachment(audio = audio)
     println(attachment)
     val post1 = Post(
         1, 1, 1, 1, 1, "Hello", 1, 1, true,
-        comments, null, null, "Hello", null, null, 4, null, 4,
+        commentTest, null, null, "Hello", null, null, 4, null, 4,
         4, 4, 4, 4, true
     )
     val post2 = post1.copy(ownerId = post1.ownerId + 4)
@@ -14,5 +14,6 @@ fun main() {
     println(WallService.add(post1))
     println(WallService.add(post2))
     println(WallService.update(post3))
+    println(WallService.createComment(1, commentTest))
 }
 
