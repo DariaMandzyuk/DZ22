@@ -2,13 +2,14 @@ data class Comment(
     val id: Int,
     val fromId: Int,
     val date: Int = 1,
-    val text: String = "String",
+    var text: String = "Текст",
     val donut: Donut? = null,
     val replyToUser: Int = 1,
     val replyToComment: Int = 1,
     val attachments: Array<Attachment> = emptyArray(),
     val parentsStack: Array<Int> = emptyArray(),
-    val threadComments: ThreadComments? = null
+    val threadComments: ThreadComments? = null,
+    var isDeleted: Boolean = false
 )
 
 data class ThreadComments(
@@ -28,5 +29,5 @@ data class ParentsStack(
     val parentsID: Int
 )
  data class Items(
-   val Items: Array<Comment>
+   val items: Array<Comment>
  )

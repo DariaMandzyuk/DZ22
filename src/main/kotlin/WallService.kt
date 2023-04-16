@@ -20,7 +20,6 @@ object WallService {
         } else {
             throw PostNotFoundException()
         }
-
     }
 
     fun clear() {
@@ -28,9 +27,11 @@ object WallService {
         lastId = 0
     }
 
-    fun add(post: Post): Post {
-        posts += post.copy(id = ++lastId)
-        return posts.last()
+    fun add(post: Post): Post { // здесь передаю класс пост и возвращаю объект класса пост
+        posts += post.copy(id = ++lastId) // массиву я прибавляю копию поста с измененным айди
+        // .copy - вызов метода copy у дата класса, при копировании мы можем изменять поля нового объекта
+        // .copy(изменяем поле id =  ++lastId )
+        return posts.last() //  возвращаю последний элемент этого массива
     }
 
     fun update(post1: Post): Boolean {
